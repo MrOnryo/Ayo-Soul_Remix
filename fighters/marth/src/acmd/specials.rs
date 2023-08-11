@@ -262,62 +262,50 @@ unsafe fn marth_special_air_s3_s_game(fighter: &mut L2CAgentBase) {
     
 }
 
-#[acmd_script( agent = "marth", script = "game_specials3lw" , category = ACMD_GAME , low_priority)]
-unsafe fn marth_special_s3_lw_game(fighter: &mut L2CAgentBase) {
-    let lua_state = fighter.lua_state_agent;
-    let boma = fighter.boma();
-    frame(lua_state, 2.0);
-    if is_excute(fighter) {
-        WorkModule::on_flag(boma, *FIGHTER_MARTH_STATUS_SPECIAL_S_FLAG_INPUT_CHECK);
+#[acmd_script( agent = "marth", script = "game_specials3lw", category = ACMD_GAME, low_priority )]
+unsafe fn game_marth_specials3lw(agent: &mut L2CAgentBase) {
+    frame(agent.lua_state_agent, 1.0);
+    if macros::is_excute(agent) {
+        WorkModule::on_flag(agent.module_accessor, *FIGHTER_MARTH_STATUS_SPECIAL_S_FLAG_INPUT_CHECK);
     }
-    frame(lua_state, 6.0);
-    if is_excute(fighter) {
-        /* Ground-only */
-        ATTACK(fighter, 0, 0, Hash40::new("top"), 5.0, 270, 75, 0, 40, 4.8, 0.0, 5.6, 12.5, Some(0.0), Some(7.0), Some(8.0), 1.0, 0.8, *ATTACK_SETOFF_KIND_OFF, *ATTACK_LR_CHECK_F, false, 1, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_G, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_cutup"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_CUTUP, *ATTACK_REGION_SWORD);
-        ATTACK(fighter, 1, 0, Hash40::new("top"), 6.0, 270, 90, 0, 40, 5.4, 0.0, 4.0, 19.4, Some(0.0), Some(7.0), Some(10.0), 1.0, 0.8, *ATTACK_SETOFF_KIND_OFF, *ATTACK_LR_CHECK_F, false, 1, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_G, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_cutup"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_CUTUP, *ATTACK_REGION_SWORD);
-        /* Air-only */
-        ATTACK(fighter, 2, 0, Hash40::new("top"), 5.0, 270, 60, 0, 40, 4.8, 0.0, 5.6, 12.5, Some(0.0), Some(7.0), Some(8.0), 1.0, 0.8, *ATTACK_SETOFF_KIND_OFF, *ATTACK_LR_CHECK_F, false, 1, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_A, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_cutup"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_CUTUP, *ATTACK_REGION_SWORD);
-        ATTACK(fighter, 3, 0, Hash40::new("top"), 6.0, 270, 65, 0, 40, 5.4, 0.0, 4.0, 19.4, Some(0.0), Some(7.0), Some(10.0), 1.0, 0.8, *ATTACK_SETOFF_KIND_OFF, *ATTACK_LR_CHECK_F, false, 1, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_A, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_cutup"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_CUTUP, *ATTACK_REGION_SWORD);
+    frame(agent.lua_state_agent, 14.0);
+    if macros::is_excute(agent) {
+        AttackModule::set_attack_reference_joint_id(agent.module_accessor, Hash40::new("sword1"), AttackDirectionAxis(*ATTACK_DIRECTION_Z), AttackDirectionAxis(*ATTACK_DIRECTION_NONE), AttackDirectionAxis(*ATTACK_DIRECTION_NONE));
+        macros::ATTACK(agent, 0, 0, Hash40::new("top"), 3.0, 270, 107, 0, 50, 4.8, 0.0, 5.6, 14.0, Some(0.0), Some(7.0), Some(10.0), 0.66, 0.8, *ATTACK_SETOFF_KIND_OFF, *ATTACK_LR_CHECK_F, true, 1, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_cutup"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_CUTUP, *ATTACK_REGION_SWORD);
+        macros::ATTACK(agent, 1, 0, Hash40::new("top"), 4.0, 270, 107, 0, 50, 3.0, 0.0, 4.0, 19.0, Some(0.0), Some(7.0), Some(10.0), 0.66, 0.8, *ATTACK_SETOFF_KIND_OFF, *ATTACK_LR_CHECK_F, true, 1, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_cutup"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_CUTUP, *ATTACK_REGION_SWORD);
     }
-    frame(lua_state, 9.0);
-    if is_excute(fighter) {
-        AttackModule::clear_all(boma);
-        WorkModule::on_flag(boma, *FIGHTER_MARTH_STATUS_SPECIAL_S_FLAG_MOTION_CHANGE_ENABLE);
+    frame(agent.lua_state_agent, 23.0);
+    if macros::is_excute(agent) {
+        AttackModule::clear_all(agent.module_accessor);
+        WorkModule::on_flag(agent.module_accessor, *FIGHTER_MARTH_STATUS_SPECIAL_S_FLAG_MOTION_CHANGE_ENABLE);
     }
-    frame(lua_state, 25.0);
-    if is_excute(fighter) {
-        WorkModule::off_flag(boma, *FIGHTER_MARTH_STATUS_SPECIAL_S_FLAG_INPUT_CHECK);
+    frame(agent.lua_state_agent, 24.0);
+    if macros::is_excute(agent) {
+        WorkModule::off_flag(agent.module_accessor, *FIGHTER_MARTH_STATUS_SPECIAL_S_FLAG_INPUT_CHECK);
     }
-    
 }
 
-#[acmd_script( agent = "marth", script = "game_specialairs3lw" , category = ACMD_GAME , low_priority)]
-unsafe fn marth_special_air_s3_lw_game(fighter: &mut L2CAgentBase) {
-    let lua_state = fighter.lua_state_agent;
-    let boma = fighter.boma();
-    frame(lua_state, 2.0);
-    if is_excute(fighter) {
-        WorkModule::on_flag(boma, *FIGHTER_MARTH_STATUS_SPECIAL_S_FLAG_INPUT_CHECK);
+#[acmd_script( agent = "marth", script = "game_specialairs3lw", category = ACMD_GAME, low_priority )]
+unsafe fn game_marth_specialairs3lw(agent: &mut L2CAgentBase) {
+    frame(agent.lua_state_agent, 1.0);
+    if macros::is_excute(agent) {
+        WorkModule::on_flag(agent.module_accessor, *FIGHTER_MARTH_STATUS_SPECIAL_S_FLAG_INPUT_CHECK);
     }
-    frame(lua_state, 6.0);
-    if is_excute(fighter) {
-        /* Ground-only */
-        ATTACK(fighter, 0, 0, Hash40::new("top"), 5.0, 270, 75, 0, 40, 4.8, 0.0, 5.6, 12.5, Some(0.0), Some(7.0), Some(8.0), 1.0, 0.8, *ATTACK_SETOFF_KIND_OFF, *ATTACK_LR_CHECK_F, false, 1, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_G, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_cutup"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_CUTUP, *ATTACK_REGION_SWORD);
-        ATTACK(fighter, 1, 0, Hash40::new("top"), 6.0, 270, 90, 0, 40, 5.4, 0.0, 4.0, 19.4, Some(0.0), Some(7.0), Some(10.0), 1.0, 0.8, *ATTACK_SETOFF_KIND_OFF, *ATTACK_LR_CHECK_F, false, 1, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_G, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_cutup"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_CUTUP, *ATTACK_REGION_SWORD);
-        /* Air-only */
-        ATTACK(fighter, 2, 0, Hash40::new("top"), 5.0, 270, 60, 0, 40, 4.8, 0.0, 5.6, 12.5, Some(0.0), Some(7.0), Some(8.0), 1.0, 0.8, *ATTACK_SETOFF_KIND_OFF, *ATTACK_LR_CHECK_F, false, 1, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_A, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_cutup"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_CUTUP, *ATTACK_REGION_SWORD);
-        ATTACK(fighter, 3, 0, Hash40::new("top"), 6.0, 270, 65, 0, 40, 5.4, 0.0, 4.0, 19.4, Some(0.0), Some(7.0), Some(10.0), 1.0, 0.8, *ATTACK_SETOFF_KIND_OFF, *ATTACK_LR_CHECK_F, false, 1, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_A, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_cutup"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_CUTUP, *ATTACK_REGION_SWORD);
+    frame(agent.lua_state_agent, 5.0);
+    if macros::is_excute(agent) {
+        AttackModule::set_attack_reference_joint_id(agent.module_accessor, Hash40::new("sword1"), AttackDirectionAxis(*ATTACK_DIRECTION_Z), AttackDirectionAxis(*ATTACK_DIRECTION_NONE), AttackDirectionAxis(*ATTACK_DIRECTION_NONE));
+        macros::ATTACK(agent, 0, 0, Hash40::new("top"), 3.0, 270, 107, 0, 50, 4.8, 0.0, 5.6, 14.0, Some(0.0), Some(7.0), Some(10.0), 0.66, 0.8, *ATTACK_SETOFF_KIND_OFF, *ATTACK_LR_CHECK_F, true, 1, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_cutup"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_CUTUP, *ATTACK_REGION_SWORD);
+        macros::ATTACK(agent, 1, 0, Hash40::new("top"), 4.0, 270, 107, 0, 50, 3.0, 0.0, 4.0, 19.0, Some(0.0), Some(7.0), Some(10.0), 0.66, 0.8, *ATTACK_SETOFF_KIND_OFF, *ATTACK_LR_CHECK_F, true, 1, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_cutup"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_CUTUP, *ATTACK_REGION_SWORD);
     }
-    frame(lua_state, 9.0);
-    if is_excute(fighter) {
-        AttackModule::clear_all(boma);
-        WorkModule::on_flag(boma, *FIGHTER_MARTH_STATUS_SPECIAL_S_FLAG_MOTION_CHANGE_ENABLE);
+    frame(agent.lua_state_agent, 8.0);
+    if macros::is_excute(agent) {
+        AttackModule::clear_all(agent.module_accessor);
+        WorkModule::on_flag(agent.module_accessor, *FIGHTER_MARTH_STATUS_SPECIAL_S_FLAG_MOTION_CHANGE_ENABLE);
     }
-    frame(lua_state, 25.0);
-    if is_excute(fighter) {
-        WorkModule::off_flag(boma, *FIGHTER_MARTH_STATUS_SPECIAL_S_FLAG_INPUT_CHECK);
+    frame(agent.lua_state_agent, 24.0);
+    if macros::is_excute(agent) {
+        WorkModule::off_flag(agent.module_accessor, *FIGHTER_MARTH_STATUS_SPECIAL_S_FLAG_INPUT_CHECK);
     }
-    
 }
 
 #[acmd_script( agent = "marth", script = "effect_specials1" , category = ACMD_EFFECT , low_priority)]
@@ -797,8 +785,8 @@ pub fn install() {
         marth_special_air_s3_hi_game,
         marth_special_s3_s_game,
         marth_special_air_s3_s_game,
-        marth_special_s3_lw_game,
-        marth_special_air_s3_lw_game,
+        game_marth_specials3lw,
+        game_marth_specialairs3lw,
         marth_special_s1_effect,
         marth_special_air_s1_effect,
         marth_special_s2_hi_effect,
